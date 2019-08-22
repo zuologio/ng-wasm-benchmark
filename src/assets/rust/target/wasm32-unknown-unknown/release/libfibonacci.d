@@ -1,0 +1,1 @@
+/mnt/e/playground/wasm/ng-wasm-benchmark/src/assets/rust/target/wasm32-unknown-unknown/release/libfibonacci.rlib: /mnt/e/playground/wasm/ng-wasm-benchmark/src/assets/rust/src/lib.rs /mnt/e/playground/wasm/ng-wasm-benchmark/src/assets/rust/src/utils.rs

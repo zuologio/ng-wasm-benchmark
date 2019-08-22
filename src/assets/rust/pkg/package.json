@@ -1,0 +1,15 @@
+{
+  "name": "fibonacci_rust",
+  "collaborators": [
+    "g10 <zuologio@hotmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "fibonacci_rust_bg.wasm",
+    "fibonacci_rust.js",
+    "fibonacci_rust.d.ts"
+  ],
+  "module": "fibonacci_rust.js",
+  "types": "fibonacci_rust.d.ts",
+  "sideEffects": "false"
+}

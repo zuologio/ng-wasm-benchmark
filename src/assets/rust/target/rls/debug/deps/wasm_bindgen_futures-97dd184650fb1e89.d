@@ -1,0 +1,9 @@
+/mnt/e/playground/rust/fibonacci/fibonacci_rust/target/rls/debug/deps/wasm_bindgen_futures-97dd184650fb1e89.rmeta: /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/lib.rs /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy_shared.rs /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy_atomics.rs /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/wait_async_polyfill.rs /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy.rs
+
+/mnt/e/playground/rust/fibonacci/fibonacci_rust/target/rls/debug/deps/wasm_bindgen_futures-97dd184650fb1e89.d: /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/lib.rs /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy_shared.rs /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy_atomics.rs /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/wait_async_polyfill.rs /home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy.rs
+
+/home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/lib.rs:
+/home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy_shared.rs:
+/home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy_atomics.rs:
+/home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/wait_async_polyfill.rs:
+/home/g10/.cargo/registry/src/github.com-1ecc6299db9ec823/wasm-bindgen-futures-0.3.26/src/legacy.rs:
