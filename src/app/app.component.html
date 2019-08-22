@@ -1,0 +1,23 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    {{ title }}
+  </h1>
+</div>
+
+<p>Calculate fibonacci series and return value at specific index. </p>
+<label>Fibonacci index</label>
+<input [(ngModel)]="index" type="number" (keydown)="submitWithReturn($event)">
+<label>Number of executions</label>
+<input [(ngModel)]="iterations" type="number" (keydown)="submitWithReturn($event)">
+<br>
+<button type="button" (click)="run()">
+  Run
+</button>
+<!-- <h2>Here are some links to help you start: </h2> -->
+<hr>
+
+<app-wasm-c></app-wasm-c>
+<app-wasm-cpp></app-wasm-cpp>
+<app-wasm-rust></app-wasm-rust>
+<app-javascript></app-javascript>
