@@ -7,6 +7,9 @@ import { WasmCppComponent } from './wasm-cpp/wasm-cpp.component';
 import { WasmCComponent } from './wasm-c/wasm-c.component';
 import { WasmRustComponent } from './wasm-rust/wasm-rust.component';
 import { JavascriptComponent } from './javascript/javascript.component';
+import { ChartComponent } from './chart/chart.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -14,11 +17,14 @@ import { JavascriptComponent } from './javascript/javascript.component';
     WasmCppComponent,
     WasmCComponent,
     WasmRustComponent,
-    JavascriptComponent
+    JavascriptComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule 
+    FormsModule,
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

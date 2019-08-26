@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { WasmCService } from './wasm-c.service';
 import { FibonacciService } from '../fibonacci.service';
 
 @Component({
   selector: 'app-wasm-c',
-  template: `<div *ngIf="averageTime!=0 ">
-  <h4>c</h4>
+  template: `<div *ngIf="result!=0">
+  <h4 [style.color]="color">c</h4>
   <pre>
   <code>emcc fibonacci.c -O3 -s WASM=1 -s ENVIRONMENT="web" --memory-init-file 0 -s MODULARIZE=1 -o fibonacci.js</code>
 </pre>
@@ -14,38 +13,54 @@ import { FibonacciService } from '../fibonacci.service';
       Result: <strong>{{result}}</strong>
   </p>
   <hr>
-</div>`
+</div>
+<div *ngIf="isLoading"><p>Loading c...</p></div>`
 })
 export class WasmCComponent implements OnInit {
-  
+  color = '#F4D03F';
   result = 0;
   averageTime: number;
   totalTime: number;
+  isLoading: boolean =false;
   
-  constructor(private wasmCService: WasmCService, 
-              private fibonacciService: FibonacciService) {}
+  constructor(private fibonacciService: FibonacciService) {}
 
   ngOnInit() {
   
     this.fibonacciService.params$.subscribe(p =>{
-     
-      let params = p as any;
-      this.averageTime= 0;
-      
+      const params = p as any;
+
       if(params == null || params.index==null || params.iterations == null){
         return;
       }
+      
+       // reset logic
+       this.result = 0; 
+       this.isLoading = true;
 
-      let times = []; // reset timer
-      for(let i = 0; i< params.iterations; i++){
-        const start = new Date().getTime();
-        this.wasmCService.fibonacci(params.index).subscribe(r=>{
-          this.result = r;
-          times.push((new Date().getTime()).valueOf() - start.valueOf());  
-        }); 
-      }
-      this.totalTime= (times.reduce((a, b) => a + b, 0));
-      this.averageTime = Math.round((this.totalTime/ params.iterations) * 100) / 100;
+      if (typeof Worker !== 'undefined' ) {
+        const worker = new Worker('./c-worker.worker', {name: 'c', type: 'module' });
+
+        worker.onmessage = ({ data }) => {
+          this.averageTime = data.averageTime;
+          this.totalTime = data.totalTime;
+          this.result = data.result;
+          this.isLoading = false;
+
+          this.fibonacciService.setChartData({
+            'name': 'c',
+            'value': this.totalTime,
+            'color': this.color
+          }, false);
+        };
+        
+        worker.postMessage(params);
+      } else {
+        // Web Workers are not supported in this environment.
+        // TODO: fallback logic!
+      }      
+
+      
     });  
   }
 

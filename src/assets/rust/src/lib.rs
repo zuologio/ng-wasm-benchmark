@@ -19,10 +19,30 @@ pub fn init() {
 }
 
 #[wasm_bindgen]
-pub fn fibonacci(index: i32) -> i32 {
+pub fn fibonacci_with_recursion(index: i32) -> i32 {
     if index <= 1 {
         index
     } else {
-        fibonacci(index - 1) + fibonacci(index - 2)
+        fibonacci_with_recursion(index - 1) + fibonacci_with_recursion(index - 2)
+    }
+}
+
+#[wasm_bindgen]
+pub fn fibonacci_with_loop(index: i32) -> i64 {
+    if index <= 1 {
+        index as i64
+    } else {
+
+        let mut last = 0;
+        let mut current = 1;
+        let mut temp;
+
+        for _x in 2..index+1 {
+            temp = current;
+            current = last + current;
+            last = temp;
+        }
+
+        current
     }
 }

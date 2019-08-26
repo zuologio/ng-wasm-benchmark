@@ -3,8 +3,8 @@ import { FibonacciService } from '../fibonacci.service';
 
 @Component({
   selector: 'app-wasm-rust',
-  template:`<div *ngIf="averageTime!=0">
-  <h4>Rust</h4>
+  template:`<div *ngIf="result!=0">
+  <h4 [style.color]="color">Rust</h4>
   <pre>
   <code>wasm-pack build</code>
 </pre>
@@ -12,42 +12,59 @@ import { FibonacciService } from '../fibonacci.service';
       Elapsed average time: <strong>{{averageTime}}</strong>ms<br>
       Result: <strong>{{result}}</strong></p>
   <hr>
-</div>`
+</div>
+<div *ngIf="isLoading"><p>Loading rust...</p></div>`
 })
 export class WasmRustComponent implements OnInit {
   wasm: typeof import('../../assets/rust/pkg/fibonacci_rust');
+  color = '#EC7063';
   averageTime: number;
   result=0;
   totalTime: any;
+  isLoading: boolean = false;
 
   constructor(private fibonacciService: FibonacciService) {
-    this.initWasm();
+    // this.initWasm();
   }
 
-  async initWasm(){
-    this.wasm = await import('../../assets/rust/pkg/fibonacci_rust');
-    //this.wasm.init(); // add usefull errors explanation in console!
-  }
+  // async initWasm(){
+  //   this.wasm = await import('../../assets/rust/pkg/fibonacci_rust');
+  //   //this.wasm.init(); // add usefull errors explanation in console!
+  // }
 
   ngOnInit() {
     this.fibonacciService.params$.subscribe(p=>{
       const params = p as any;
-      this.averageTime= 0;
 
       if(params == null || params.index==null || params.iterations == null){
         return;
       }
-  
-      let times = []; // reset timer
-      for(let i = 0; i< params.iterations; i++){
-        const start = new Date().getTime();
-        this.result = this.wasm.fibonacci(params.index);
-        times.push((new Date().getTime()).valueOf() - start.valueOf());
-      }
-     
-      this.totalTime= (times.reduce((a, b) => a + b, 0));
-      this.averageTime = Math.round((this.totalTime/ params.iterations) * 100) / 100;
       
+       // reset logic
+       this.result = 0; 
+       this.isLoading = true;
+
+      if (typeof Worker !== 'undefined' ) {
+        const worker = new Worker('./rust-worker.worker', {name: 'rust', type: 'module' });
+
+        worker.onmessage = ({ data }) => {
+          this.averageTime = data.averageTime;
+          this.totalTime = data.totalTime;
+          this.result = data.result;
+          this.isLoading = false;
+
+          this.fibonacciService.setChartData({
+            'name': 'Rust',
+            'value': this.totalTime,
+            'color': this.color
+          }, false);
+        };
+        
+        worker.postMessage(params);
+      } else {
+        // Web Workers are not supported in this environment.
+        // TODO: fallback logic!
+      }      
     });
   }
 
